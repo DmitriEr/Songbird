@@ -5,7 +5,6 @@ import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
 const Description = ({ number, choice, bools }) => {
-console.log(data[number][0])
 
 const showBird = (value) => {
   switch(value) {
@@ -44,7 +43,7 @@ const showBird = (value) => {
                     />
                   ]
                 }
-                renderItem={item => <List.Item>{item}</List.Item>}
+              renderItem={item => <List.Item>{item}</List.Item>}
               />
             </div>
           </div>

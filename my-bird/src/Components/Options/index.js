@@ -1,10 +1,50 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import data from '../../Data';
 import { List } from 'antd';
 import { QuestionCircleOutlined, CloseCircleOutlined, CheckSquareOutlined } from '@ant-design/icons';
+import correct from '../../Audio/pronunciation_en_correct.mp3';
+import error from '../../Audio/pronunciation_en_try_again.mp3';
 
+const Options = ({ 
+  number,
+  choice,
+  setChoice,
+  setBools,
+  random,
+  setScore,
+  score,
+  setResult,
+  select,
+  setSelect,
+  plusScore,
+  setPlusScore,
+  count,
+  setCount 
+}) => {
+  const counter = () => {
+    let click = count;
+    click -= 1;
+    setCount(click);
+  }
 
-const Options = ({ number, choice, setChoice, setBools, random }) => {
+  const playAudio = () => {
+    if (choice === random) {
+      new Audio(correct).play();
+    }
+    new Audio(error).play();
+  }
+
+  useEffect(() => {
+    if (choice === random && plusScore && count !== 6) {
+      let scoreCount = score;
+      scoreCount += count;
+      setPlusScore(false)
+      setScore(scoreCount);
+      setCount(6);
+      setResult((prev) => new Set(prev.add(choice)));
+    }
+  }, [choice, random, setScore, setCount, setResult, count, setPlusScore, plusScore])
+
   const showIcon = (value, text) => {
     switch(value) {
       case random: {
@@ -33,12 +73,17 @@ const Options = ({ number, choice, setChoice, setBools, random }) => {
           <List.Item
             key={item.name}
             className="options__value"
-            style={{padding: "20px 10px"}}
+            style={{padding: "10px 10px"}}
             onClick={() => {
               setChoice(index);
               setBools(true);
+              if (!select.has(index)) {
+                counter();
+              };
+              playAudio();
+              setSelect((prev) => new Set(prev.add(index)))
           }}>
-            {choice === index ? showIcon(index, item.name) : 
+            {select.has(index) ? showIcon(index, item.name) : 
               (
                 <List.Item.Meta
                   avatar={<QuestionCircleOutlined />}
