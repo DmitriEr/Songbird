@@ -5,6 +5,9 @@ import { QuestionCircleOutlined, CloseCircleOutlined, CheckSquareOutlined } from
 import correct from '../../Audio/pronunciation_en_correct.mp3';
 import error from '../../Audio/pronunciation_en_try_again.mp3';
 
+const correctAudio = new Audio(correct);
+const errorAudio = new Audio(error);
+
 const Options = ({ 
   number,
   choice,
@@ -27,11 +30,12 @@ const Options = ({
     setCount(click);
   }
 
-  const playAudio = () => {
-    if (choice === random) {
-      new Audio(correct).play();
+  const playAudio = (ind) => {
+    if (ind === random) {
+      correctAudio.play();
+    } else {
+      errorAudio.play()
     }
-    new Audio(error).play();
   }
 
   useEffect(() => {
@@ -80,7 +84,7 @@ const Options = ({
               if (!select.has(index)) {
                 counter();
               };
-              playAudio();
+              playAudio(index);
               setSelect((prev) => new Set(prev.add(index)))
           }}>
             {select.has(index) ? showIcon(index, item.name) : 

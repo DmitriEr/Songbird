@@ -1,14 +1,22 @@
 import React from 'react';
 import { List } from 'antd';
 import data from '../../Data';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
 
 const Description = ({ number, choice, bools }) => {
 
-const showBird = (value) => {
-  switch(value) {
-    case true: {
+  const Player = () => {
+    return (
+      <audio 
+      controls
+      className="description__list"
+    >
+      <source src={data[number][choice].audio} type="audio/mp3" />
+    </audio>
+    )
+  }
+
+  const showBird = () => {
+    if (bools) {
       return (
         <div className="description__bird">
            <div
@@ -33,17 +41,11 @@ const showBird = (value) => {
                 dataSource={
                   [
                     data[number][choice].name, 
-                    data[number][choice].species, 
-                    <AudioPlayer
-                      src={data[number][choice].audio}
-                      autoPlay={false}
-                      showJumpControls={false}
-                      className="answer__audioplay"
-                      style={{backgroundColor: '#fff', boxShadow: 'none'}}
-                    />
+                    data[number][choice].species,
+                    Player()
                   ]
                 }
-              renderItem={item => <List.Item>{item}</List.Item>}
+              renderItem={(item) => <List.Item>{item}</List.Item>}
               />
             </div>
           </div>
@@ -54,9 +56,7 @@ const showBird = (value) => {
           </div>
         </div>
       )
-    }
-
-    default: {
+    } else {
       return (
         <div>
           <p>Послушайте плеер.</p>
@@ -65,11 +65,10 @@ const showBird = (value) => {
       )
     }
   }
-}
 
   return (
     <div className="description">
-      {showBird(bools)}
+      {showBird()}
     </div>
   )
 }

@@ -156,6 +156,10 @@
   margin-top: 30px;
 }
 
+.control__wrapper {
+  width: 100%;
+}
+
 .control__button:disabled {
   background-color: #fff;
 }

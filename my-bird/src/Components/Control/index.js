@@ -10,10 +10,10 @@ const Control = ({ choice, random, setNumber, number, setBools, result, setSelec
   }
 
   return  (
-    <div>
+    <div className="control__wrapper">
       <button
         disabled={showButton()}
-        className={`control__button`}
+        className="control__button"
         onClick={() => {
           const value = number + 1;
           setNumber(value);

@@ -36,11 +36,6 @@ function App() {
   const gameProcess = () => {
     if (stage === 'game') {
       return (
-        <div className="wrapper">
-          <Header
-              number={number}
-              score={score}
-          />
           <main className="main">
             <Answer
               choice={choice}
@@ -69,33 +64,48 @@ function App() {
               choice={choice}
               bools={bools}
             />
+            <Control
+              choice={choice}
+              random={random} 
+              setNumber={setNumber}
+              number={number}
+              setBools={setBools}  
+              result={result}
+              setResult={setResult}
+              setSelect={setSelect}
+              setPlusScore={setPlusScore}
+              setCount={setCount}
+              setStage={setStage}
+            />
           </main>
-          <Control
-            choice={choice}
-            random={random} 
-            setNumber={setNumber}
-            number={number}
-            setBools={setBools}  
-            result={result}
-            setResult={setResult}
-            setSelect={setSelect}
-            setPlusScore={setPlusScore}
-            setCount={setCount}
-            setStage={setStage}
-          />
-        </div>
       );
     } else {
       return (
-        <div>
-          Поздравляем!
-        </div>
+        <main className="main">
+          <p>Поздравляем!</p>
+          <p>{`Вы прошли викторину и набрали ${score} из 30 возможных баллов`}</p>
+          <button
+            onClick={() => {
+              setScore(0);
+              setCount(6);
+              setStage('game');
+              setNumber(0);
+              setBools(false);
+              setSelect((prev) => new Set(prev.clear()));
+              setResult((prev) => new Set(prev.clear()));
+            }}
+          >Попробывать еще раз</button>
+        </main>
       )
     }
   }
 
 return (
-  <div>
+  <div className="wrapper">
+    <Header
+        number={number}
+        score={score}
+    />
     {gameProcess()}
   </div>
 )  
