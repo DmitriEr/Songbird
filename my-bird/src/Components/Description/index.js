@@ -1,17 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { List } from 'antd';
 import data from '../../Data';
+import play from '../../Picture/play-button.svg';
+import pause from '../../Picture/pause-button.svg';
 
-const Description = ({ number, choice, bools }) => {
+const Description = ({ number, choice, bools, sound }) => {
+  const [togglePlay, setTogglePlay] = useState(false);
+  const [togglePause, setTogglePause] = useState(true);
 
   const Player = () => {
     return (
-      <audio 
-      controls
-      className="description__list"
-    >
-      <source src={data[number][choice].audio} type="audio/mp3" />
-    </audio>
+      <div>
+        <img
+          src={play}
+          alt="play"
+          className="description__list-img"
+          onClick={() => {
+            sound.src = data[number][choice].audio;
+            sound.play();
+            setTogglePlay(true);
+            setTogglePause(false);
+            console.log(sound)
+          }}
+          hidden={togglePlay}
+        />
+        <img
+          src={pause}
+          hidden={togglePause}
+          className="description__list-img"
+          alt="pause"
+          onClick={() => {
+            sound.src = data[number][choice].audio;
+            sound.pause();
+            setTogglePlay(false);
+            setTogglePause(true);
+          }}
+        />
+      </div>
     )
   }
 

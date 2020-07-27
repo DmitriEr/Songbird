@@ -105,6 +105,13 @@
   font-size: 15px;
 }
 
+.description__list-img {
+  width: 50px;
+  height: 50px;
+  margin: 0px 10px;
+  cursor: pointer;
+}
+
 .options {
   width: 48%;
 }
@@ -154,6 +161,7 @@
   outline: none;
   border: solid 1px #000;
   margin-top: 30px;
+  cursor: pointer;
 }
 
 .control__wrapper {
@@ -179,4 +187,43 @@
 .rhap_volume-bar-area,
 .rhap_progress-container {
   outline: none;
+}
+
+.main__finish {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+
+.main__text,
+.main__result,
+.main__continue {
+  width: 100%;
+  font-weight: 700;
+  text-align: center;
+}
+
+.main__text {
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+.main__result {
+  font-size: 18px;
+}
+
+.main__continue {
+  font-size: 18px;
+  background-color: #1890ff;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.main__movie {
+  width: 80%;
 }

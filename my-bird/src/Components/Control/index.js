@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Control = ({ choice, random, setNumber, number, setBools, result, setSelect, setResult, setPlusScore, setCount, setStage }) => {
+const Control = ({ random, setNumber, number, setBools, result, setSelect, setResult, setPlusScore, setCount, setStage, score }) => {
 
   const showButton = () => {
     if (result.has(random)) {
@@ -23,8 +24,13 @@ const Control = ({ choice, random, setNumber, number, setBools, result, setSelec
           setSelect((prev) => new Set(prev.clear()));
           setResult((prev) => new Set(prev.clear()));
           if (number === 5) {
-            setStage('completed');
-            setNumber(0);
+            if (score > 30) {
+              setStage('completed');
+              setNumber(0);
+            } else {
+              setStage('again');
+              setNumber(0);
+            }
           }
         }}
       >
@@ -32,6 +38,20 @@ const Control = ({ choice, random, setNumber, number, setBools, result, setSelec
       </button>
     </div>
   )
+}
+
+Control.propTypes = {
+  random: PropTypes.number.isRequired,
+  setNumber: PropTypes.func.isRequired,
+  number: PropTypes.number.isRequired,
+  setBools: PropTypes.func.isRequired,
+  result: PropTypes.instanceOf(Set).isRequired,
+  setSelect: PropTypes.func.isRequired,
+  setResult: PropTypes.func.isRequired,
+  setPlusScore: PropTypes.func.isRequired,
+  setCount: PropTypes.func.isRequired,
+  setStage: PropTypes.func.isRequired,
+  score: PropTypes.number.isRequired,
 }
 
 export default Control;

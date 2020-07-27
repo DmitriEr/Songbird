@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Player } from 'video-react';
+import '../node_modules/video-react/dist/video-react.css';
 import './App.css';
 import 'antd/dist/antd.css';
 import Header from './Components/Header';
@@ -7,6 +9,8 @@ import Answer from './Components/Answer';
 import Description from './Components/Description';
 import Control from '././Components/Control';
 import data from './Data';
+import video from './Video/movie.mp4';
+import birds from './Picture/poster.jpg';
 
 function App() {
   const [number, setNumber] = useState(0);
@@ -19,6 +23,7 @@ function App() {
   const [plusScore, setPlusScore] = useState(true);
   const [count, setCount] = useState(6);
   const [stage, setStage] = useState('game');
+  const [sound] = useState(new Audio());
 
   const randomNumber = useCallback(() => {
     if (stage === 'game') {
@@ -34,8 +39,9 @@ function App() {
   }, [number, randomNumber, setRandom, stage])
 
   const gameProcess = () => {
-    if (stage === 'game') {
-      return (
+    switch (stage) {
+      case 'game': {
+        return (
           <main className="main">
             <Answer
               choice={choice}
@@ -58,11 +64,13 @@ function App() {
               setPlusScore={setPlusScore}
               setCount={setCount}
               count={count}
+              sound={sound}
              />
             <Description 
               number={number}
               choice={choice}
               bools={bools}
+              sound={sound}
             />
             <Control
               choice={choice}
@@ -76,27 +84,59 @@ function App() {
               setPlusScore={setPlusScore}
               setCount={setCount}
               setStage={setStage}
+              score={score}
             />
           </main>
-      );
-    } else {
-      return (
-        <main className="main">
-          <p>Поздравляем!</p>
-          <p>{`Вы прошли викторину и набрали ${score} из 30 возможных баллов`}</p>
-          <button
-            onClick={() => {
-              setScore(0);
-              setCount(6);
-              setStage('game');
-              setNumber(0);
-              setBools(false);
-              setSelect((prev) => new Set(prev.clear()));
-              setResult((prev) => new Set(prev.clear()));
-            }}
-          >Попробывать еще раз</button>
-        </main>
-      )
+        );
+      }
+
+      case 'completed': {
+        return (
+          <main className="main__finish">
+            <p className="main__text">Поздравляем, отличный результат!</p>
+            <p className="main__result">{`Вы прошли викторину и набрали ${score} из 30 возможных баллов`}</p>
+            <Player
+              className="main__movie"
+              src={video}
+              poster={birds}
+              playsInline
+            />
+            <button
+            className="main__continue"
+              onClick={() => {
+                setScore(0);
+                setCount(6);
+                setStage('game');
+                setNumber(0);
+                setBools(false);
+                setSelect((prev) => new Set(prev.clear()));
+                setResult((prev) => new Set(prev.clear()));
+              }}
+            >Попробовать еще раз</button>
+          </main>
+        )
+      }
+
+      default: {
+        return (
+          <main className="main__finish">
+            <p className="main__text">Можно лучше!</p>
+            <p className="main__result">{`Вы прошли викторину и набрали ${score} из 30 возможных баллов`}</p>
+            <button
+              className="main__continue"
+              onClick={() => {
+                setScore(0);
+                setCount(6);
+                setStage('game');
+                setNumber(0);
+                setBools(false);
+                setSelect((prev) => new Set(prev.clear()));
+                setResult((prev) => new Set(prev.clear()));
+              }}
+            >Попробовать еще раз</button>
+          </main>
+        )
+      }
     }
   }
 

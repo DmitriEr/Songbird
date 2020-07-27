@@ -22,7 +22,8 @@ const Options = ({
   plusScore,
   setPlusScore,
   count,
-  setCount 
+  setCount,
+  sound,
 }) => {
   const counter = () => {
     let click = count;
@@ -85,7 +86,12 @@ const Options = ({
                 counter();
               };
               playAudio(index);
-              setSelect((prev) => new Set(prev.add(index)))
+              setSelect((prev) => new Set(prev.add(index)));
+              // sound.ended();
+              // console.log(sound.src.length)
+              if (sound.src.length !== 0) {
+                sound.pause();
+              }
           }}>
             {select.has(index) ? showIcon(index, item.name) : 
               (
