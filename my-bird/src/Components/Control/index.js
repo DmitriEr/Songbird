@@ -24,7 +24,7 @@ const Control = ({ random, setNumber, number, setBools, result, setSelect, setRe
           setSelect((prev) => new Set(prev.clear()));
           setResult((prev) => new Set(prev.clear()));
           if (number === 5) {
-            if (score > 30) {
+            if (score === 30) {
               setStage('completed');
               setNumber(0);
             } else {

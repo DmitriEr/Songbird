@@ -7,7 +7,6 @@ const Header = ({ number, score }) => {
     if (number === value) {
       return 'header__select';
     }
-    return null;
   }
 
   return (

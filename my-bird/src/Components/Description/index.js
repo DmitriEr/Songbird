@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { List } from 'antd';
 import data from '../../Data';
 import play from '../../Picture/play-button.svg';
 import pause from '../../Picture/pause-button.svg';
 
-const Description = ({ number, choice, bools, sound }) => {
-  const [togglePlay, setTogglePlay] = useState(false);
-  const [togglePause, setTogglePause] = useState(true);
-
+const Description = ({ number, choice, bools, sound, togglePause, togglePlay, setTogglePause, setTogglePlay }) => {
   const Player = () => {
     return (
       <div>
@@ -20,7 +17,6 @@ const Description = ({ number, choice, bools, sound }) => {
             sound.play();
             setTogglePlay(true);
             setTogglePause(false);
-            console.log(sound)
           }}
           hidden={togglePlay}
         />

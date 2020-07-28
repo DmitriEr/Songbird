@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Player } from 'video-react';
 import '../node_modules/video-react/dist/video-react.css';
 import './App.css';
@@ -16,7 +16,7 @@ function App() {
   const [number, setNumber] = useState(0);
   const [choice, setChoice] = useState(-1);
   const [bools, setBools] = useState(false);
-  const [random, setRandom] = useState(1);
+  const [random, setRandom] = useState(0);
   const [score, setScore] =  useState(0);
   const [result, setResult] = useState(new Set());
   const [select, setSelect] = useState(new Set());
@@ -24,19 +24,22 @@ function App() {
   const [count, setCount] = useState(6);
   const [stage, setStage] = useState('game');
   const [sound] = useState(new Audio());
+  const [togglePlay, setTogglePlay] = useState(false);
+  const [togglePause, setTogglePause] = useState(true);
+  const [consoleAnswer, setConsoleAnswer] = useState('');
 
-  const randomNumber = useCallback(() => {
-    if (stage === 'game') {
-      const rand = Math.random() * (data[number].length);
-      return Math.floor(rand);
-    }
-  }, [number, stage]);
+  useEffect(() => {
+    console.log(consoleAnswer);
+  }, [consoleAnswer]);
 
   useEffect(() => {
     if (stage === 'game') {
-      setRandom(randomNumber());
+      const rand = Math.random() * (5);
+      const num = Math.floor(rand);      
+      setRandom(num);
+      setConsoleAnswer(data[number][num].name);
     }
-  }, [number, randomNumber, setRandom, stage])
+  }, [number, setRandom, stage])
 
   const gameProcess = () => {
     switch (stage) {
@@ -65,12 +68,18 @@ function App() {
               setCount={setCount}
               count={count}
               sound={sound}
+              setTogglePlay={setTogglePlay}
+              setTogglePause={setTogglePause}
              />
             <Description 
               number={number}
               choice={choice}
               bools={bools}
               sound={sound}
+              togglePlay={togglePlay}
+              setTogglePlay={setTogglePlay}
+              togglePause={togglePause}
+              setTogglePause={setTogglePause}
             />
             <Control
               choice={choice}
