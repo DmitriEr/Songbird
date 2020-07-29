@@ -1,20 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Control = ({ random, setNumber, number, setBools, result, setSelect, setResult, setPlusScore, setCount, setStage, score }) => {
-
+const Control = ({
+  random,
+  setNumber,
+  number,
+  setBools,
+  result,
+  setSelect,
+  setResult,
+  setPlusScore,
+  setCount,
+  setStage,
+  score,
+  setShowOther,
+}) => {
   const showButton = () => {
     if (result.has(random)) {
       return false;
     }
     return true;
-  }
+  };
 
-  return  (
+  return (
     <div className="control__wrapper">
       <button
         disabled={showButton()}
         className="control__button"
+        type="button"
         onClick={() => {
           const value = number + 1;
           setNumber(value);
@@ -23,6 +36,7 @@ const Control = ({ random, setNumber, number, setBools, result, setSelect, setRe
           setCount(6);
           setSelect((prev) => new Set(prev.clear()));
           setResult((prev) => new Set(prev.clear()));
+          setShowOther(true);
           if (number === 5) {
             if (score === 30) {
               setStage('completed');
@@ -37,8 +51,8 @@ const Control = ({ random, setNumber, number, setBools, result, setSelect, setRe
         Next Level
       </button>
     </div>
-  )
-}
+  );
+};
 
 Control.propTypes = {
   random: PropTypes.number.isRequired,
@@ -52,6 +66,7 @@ Control.propTypes = {
   setCount: PropTypes.func.isRequired,
   setStage: PropTypes.func.isRequired,
   score: PropTypes.number.isRequired,
-}
+  setShowOther: PropTypes.func.isRequired,
+};
 
 export default Control;

@@ -5,7 +5,7 @@ import Header from './Components/Header';
 import Options from './Components/Options';
 import Answer from './Components/Answer';
 import Description from './Components/Description';
-import Control from '././Components/Control';
+import Control from './Components/Control';
 import data from './Data';
 import video from './Video/movie.mp4';
 import birds from './Picture/poster.jpg';
@@ -16,15 +16,15 @@ const appraisal = {
   2: 'Удоволетворительно, но можно лучше!',
   3: 'Не плохо. Попробуй ещё!',
   4: 'Хороший результат!',
-  5: 'Отличный результат! Еще бы чуть-чуть...'
-}
+  5: 'Отличный результат! Еще бы чуть-чуть...',
+};
 
 function App() {
   const [number, setNumber] = useState(0);
   const [choice, setChoice] = useState(-1);
   const [bools, setBools] = useState(false);
   const [random, setRandom] = useState(0);
-  const [score, setScore] =  useState(0);
+  const [score, setScore] = useState(0);
   const [result, setResult] = useState(new Set());
   const [select, setSelect] = useState(new Set());
   const [plusScore, setPlusScore] = useState(true);
@@ -34,6 +34,7 @@ function App() {
   const [togglePlay, setTogglePlay] = useState(false);
   const [togglePause, setTogglePause] = useState(true);
   const [consoleAnswer, setConsoleAnswer] = useState('');
+  const [showOther, setShowOther] = useState(true);
 
   useEffect(() => {
     console.log(consoleAnswer);
@@ -42,27 +43,26 @@ function App() {
   useEffect(() => {
     if (stage === 'game') {
       const rand = Math.random() * (5);
-      const num = Math.floor(rand);      
+      const num = Math.floor(rand);
       setRandom(num);
       setConsoleAnswer(data[number][num].name);
     }
-  }, [number, setRandom, stage])
+  }, [number, setRandom, stage]);
 
   const showtext = () => {
     if (score <= 5) {
       return appraisal[0];
-    } else if (score > 5 && score <= 10) {
+    } if (score > 5 && score <= 10) {
       return appraisal[1];
-    } else if (score > 10 && score <= 15) {
+    } if (score > 10 && score <= 15) {
       return appraisal[2];
-    } else if (score > 15 && score <= 20) {
+    } if (score > 15 && score <= 20) {
       return appraisal[3];
-    } else if (score > 20 && score <= 25) {
+    } if (score > 20 && score <= 25) {
       return appraisal[4];
-    } else if (score > 25 && score <= 29) {
-      return appraisal[5]
     }
-  }
+    return appraisal[5];
+  };
 
   const gameProcess = () => {
     switch (stage) {
@@ -70,7 +70,6 @@ function App() {
         return (
           <main className="main">
             <Answer
-              choice={choice}
               random={random}
               number={number}
               result={result}
@@ -93,8 +92,10 @@ function App() {
               sound={sound}
               setTogglePlay={setTogglePlay}
               setTogglePause={setTogglePause}
-             />
-            <Description 
+              setShowOther={setShowOther}
+              showOther={showOther}
+            />
+            <Description
               number={number}
               choice={choice}
               bools={bools}
@@ -106,10 +107,10 @@ function App() {
             />
             <Control
               choice={choice}
-              random={random} 
+              random={random}
               setNumber={setNumber}
               number={number}
-              setBools={setBools}  
+              setBools={setBools}
               result={result}
               setResult={setResult}
               setSelect={setSelect}
@@ -117,6 +118,7 @@ function App() {
               setCount={setCount}
               setStage={setStage}
               score={score}
+              setShowOther={setShowOther}
             />
           </main>
         );
@@ -129,12 +131,14 @@ function App() {
             <p className="main__result">{`Вы прошли викторину и набрали ${score} из 30 возможных баллов`}</p>
             <video
               className="main__movie"
+              type="video/mp4"
               src={video}
               poster={birds}
               controls
             />
             <button
-            className="main__continue"
+              className="main__continue"
+              type="button"
               onClick={() => {
                 setScore(0);
                 setCount(6);
@@ -144,9 +148,11 @@ function App() {
                 setSelect((prev) => new Set(prev.clear()));
                 setResult((prev) => new Set(prev.clear()));
               }}
-            >Попробовать еще раз</button>
+            >
+              Попробовать еще раз
+            </button>
           </main>
-        )
+        );
       }
 
       default: {
@@ -158,6 +164,7 @@ function App() {
             <p className="main__result">{`Вы прошли викторину и набрали ${score} из 30 возможных баллов`}</p>
             <button
               className="main__continue"
+              type="button"
               onClick={() => {
                 setScore(0);
                 setCount(6);
@@ -167,22 +174,24 @@ function App() {
                 setSelect((prev) => new Set(prev.clear()));
                 setResult((prev) => new Set(prev.clear()));
               }}
-            >Попробовать еще раз</button>
+            >
+              Попробовать еще раз
+            </button>
           </main>
-        )
+        );
       }
     }
-  }
+  };
 
-return (
-  <div className="wrapper">
-    <Header
+  return (
+    <div className="wrapper">
+      <Header
         number={number}
         score={score}
-    />
-    {gameProcess()}
-  </div>
-)  
+      />
+      {gameProcess()}
+    </div>
+  );
 }
 
 export default App;
