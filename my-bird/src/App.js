@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Player } from 'video-react';
-import '../node_modules/video-react/dist/video-react.css';
 import './App.css';
 import 'antd/dist/antd.css';
 import Header from './Components/Header';
@@ -11,6 +9,15 @@ import Control from '././Components/Control';
 import data from './Data';
 import video from './Video/movie.mp4';
 import birds from './Picture/poster.jpg';
+
+const appraisal = {
+  0: 'Очень плохо! Открой консоль - там правильные ответы!',
+  1: 'Плохо, нужно больше времени проводить на природе!',
+  2: 'Удоволетворительно, но можно лучше!',
+  3: 'Не плохо. Попробуй ещё!',
+  4: 'Хороший результат!',
+  5: 'Отличный результат! Еще бы чуть-чуть...'
+}
 
 function App() {
   const [number, setNumber] = useState(0);
@@ -40,6 +47,22 @@ function App() {
       setConsoleAnswer(data[number][num].name);
     }
   }, [number, setRandom, stage])
+
+  const showtext = () => {
+    if (score <= 5) {
+      return appraisal[0];
+    } else if (score > 5 && score <= 10) {
+      return appraisal[1];
+    } else if (score > 10 && score <= 15) {
+      return appraisal[2];
+    } else if (score > 15 && score <= 20) {
+      return appraisal[3];
+    } else if (score > 20 && score <= 25) {
+      return appraisal[4];
+    } else if (score > 25 && score <= 29) {
+      return appraisal[5]
+    }
+  }
 
   const gameProcess = () => {
     switch (stage) {
@@ -102,13 +125,13 @@ function App() {
       case 'completed': {
         return (
           <main className="main__finish">
-            <p className="main__text">Поздравляем, отличный результат!</p>
+            <p className="main__text">Поздравляем, уровень орнитолог пройден!</p>
             <p className="main__result">{`Вы прошли викторину и набрали ${score} из 30 возможных баллов`}</p>
-            <Player
+            <video
               className="main__movie"
               src={video}
               poster={birds}
-              playsInline
+              controls
             />
             <button
             className="main__continue"
@@ -129,7 +152,9 @@ function App() {
       default: {
         return (
           <main className="main__finish">
-            <p className="main__text">Можно лучше!</p>
+            <p className="main__text">
+              {showtext()}
+            </p>
             <p className="main__result">{`Вы прошли викторину и набрали ${score} из 30 возможных баллов`}</p>
             <button
               className="main__continue"

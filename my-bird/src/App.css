@@ -1,12 +1,13 @@
 #root {
   background: rgb(220, 221, 203);
+  height: auto;
 }
 
 .wrapper {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0px 30px;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .header__logo,
@@ -55,6 +56,11 @@
   flex-wrap: wrap;
 }
 
+.main__movie {
+  width: 100%;
+  height: auto;
+}
+
 .answer {
   display: grid;
   grid-template-areas: 
@@ -70,7 +76,14 @@
 
 .description {
   width: 48%;
-  max-height: 500px;
+  height: 350px;
+}
+
+.description__player-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 .description__list {
@@ -112,6 +125,26 @@
   cursor: pointer;
 }
 
+.description__volume {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.description__list-sound {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.description__list-number {
+  font-size: 18px;
+  min-width: 45px;
+  text-align: center;
+}
+
 .options {
   width: 48%;
 }
@@ -149,6 +182,7 @@
 
 .options__value {
   cursor: pointer;
+  padding: 15px 10px !important;
 }
 
 .options__value:hover {
@@ -162,7 +196,9 @@
   border: solid 1px #000;
   margin-top: 30px;
   margin-bottom: 20px;
+  padding: 5px 0px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .control__wrapper {
@@ -184,6 +220,14 @@
   background-color: #1890ff !important;
 }
 
+.anticon-close-circle svg {
+  fill: red;
+}
+
+.anticon-check-square svg {
+  fill: green;
+}
+
 .rhap_button-clear,
 .rhap_volume-bar-area,
 .rhap_progress-container {
@@ -195,7 +239,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  height : 500px;
+  height : 100vh;
 }
 
 .main__text,
@@ -266,6 +310,10 @@
 }
 
 @media (max-width: 539px) and (min-width: 300px) {
+  .wrapper {
+    padding: 0px 10px;
+  }
+
   .header__logo,
   .header__score {
     font-size: 25px;
@@ -312,6 +360,25 @@
     height: 600px;
   }
 
+  .description__player-wrapper {
+    flex-wrap: wrap;
+  }
+
+  .description__list-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .description__list-sound {
+    width: 20px;
+    height: 20px;
+  }
+
+  .description__list-number {
+    font-size: 12px;
+    min-width: 30px;
+  }
+
   .description__bird-text {
     font-size: 12px;
   }
@@ -342,5 +409,13 @@
   .main__result {
     font-size: 15px;
     margin-bottom: 5px;
+  }
+
+  .main__movie {
+    width: 100%;
+  }
+
+  .main__finish {
+    height: 100vh;
   }
 }
