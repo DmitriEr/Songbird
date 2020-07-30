@@ -58,44 +58,65 @@ const Description = ({
     <div
       className="description__player-wrapper"
     >
-      <img
-        src={play}
-        alt="play"
-        className="description__list-img"
+      <button
         onClick={playActive}
         onKeyDown={playActive}
-        hidden={togglePlay}
-      />
-      <img
-        src={pause}
-        hidden={togglePause}
-        className="description__list-img"
-        alt="pause"
+        type="button"
+        className="description__btn"
+      >
+        <img
+          src={play}
+          alt="play"
+          className="description__list-img"
+
+          hidden={togglePlay}
+        />
+      </button>
+      <button
+        type="button"
+        className="description__btn"
         onClick={pauseActive}
         onKeyDown={pauseActive}
-      />
+      >
+        <img
+          src={pause}
+          hidden={togglePause}
+          className="description__list-img"
+          alt="pause"
+        />
+      </button>
       <div
         className="description__volume"
       >
-        <img
-          className="description__list-sound"
-          alt="plus"
-          src={plus}
+        <button
+          type="button"
+          className="description__btn"
           onClick={plusActive}
           onKeyDown={plusActive}
-        />
+        >
+          <img
+            className="description__list-sound"
+            alt="plus"
+            src={plus}
+          />
+        </button>
         <span
           className="description__list-number"
         >
           {Math.floor(vol * 100)}
         </span>
-        <img
-          src={minus}
-          alt="minus"
-          className="description__list-sound"
+        <button
+          type="button"
+          className="description__btn"
           onClick={minusActive}
           onKeyDown={minusActive}
-        />
+        >
+          <img
+            src={minus}
+            alt="minus"
+            className="description__list-sound"
+          />
+        </button>
       </div>
     </div>
   );

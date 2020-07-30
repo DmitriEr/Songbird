@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
 import Header from './Components/Header';
@@ -35,6 +35,7 @@ function App() {
   const [togglePause, setTogglePause] = useState(true);
   const [consoleAnswer, setConsoleAnswer] = useState('');
   const [showOther, setShowOther] = useState(true);
+  const audioRef = useRef();
 
   useEffect(() => {
     console.log(consoleAnswer);
@@ -73,9 +74,11 @@ function App() {
               random={random}
               number={number}
               result={result}
+              audioRef={audioRef}
             />
             <Options
               number={number}
+              audioRef={audioRef}
               setChoice={setChoice}
               setBools={setBools}
               random={random}
@@ -135,7 +138,9 @@ function App() {
               src={video}
               poster={birds}
               controls
-            />
+            >
+              <track kind="captions" />
+            </video>
             <button
               className="main__continue"
               type="button"

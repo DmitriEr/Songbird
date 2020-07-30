@@ -29,6 +29,7 @@ const Options = ({
   setTogglePause,
   setShowOther,
   showOther,
+  audioRef,
 }) => {
   const counter = () => {
     let click = count;
@@ -55,7 +56,9 @@ const Options = ({
       setCount(6);
       setResult((prev) => new Set(prev.add(choice)));
       setShowOther(false);
+      audioRef.current.audio.current.pause();
     }
+    // eslint-disable-next-line
   }, [choice, random, setScore, setCount, setResult, count, setPlusScore, plusScore, setShowOther]);
 
   const showIcon = (value, text) => {
@@ -134,6 +137,7 @@ Options.propTypes = {
   setTogglePause: PropTypes.func.isRequired,
   setShowOther: PropTypes.func.isRequired,
   showOther: PropTypes.bool.isRequired,
+  audioRef: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Options;

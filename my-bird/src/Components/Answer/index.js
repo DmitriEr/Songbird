@@ -8,6 +8,7 @@ const Answer = ({
   random,
   number,
   result,
+  audioRef,
 }) => {
   const showCurrentImage = () => {
     if (result.has(random)) {
@@ -44,6 +45,8 @@ const Answer = ({
       <div className="answer__speech">
         <AudioPlayer
           src={data[number][random].audio}
+          ref={audioRef}
+          preload="none"
           className="answer__audioplay"
           style={{ backgroundColor: '#fff', boxShadow: 'none' }}
         />
@@ -56,6 +59,7 @@ Answer.propTypes = {
   random: PropTypes.number.isRequired,
   number: PropTypes.number.isRequired,
   result: PropTypes.instanceOf(Set).isRequired,
+  audioRef: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Answer;
